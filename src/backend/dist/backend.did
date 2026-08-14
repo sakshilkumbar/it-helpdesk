@@ -1,0 +1,426 @@
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserView = 
+ record {
+   createdAt: Timestamp;
+   displayName: text;
+   email: opt text;
+   id: UserId;
+   isActive: bool;
+   lastSeenAt: opt Timestamp;
+   role: AppRole;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserId = principal;
+type Timestamp = nat;
+type TicketView = 
+ record {
+   assignedAgent: opt UserId;
+   attachments: vec Attachment;
+   categoryId: CategoryId;
+   closedAt: opt Timestamp;
+   createdAt: Timestamp;
+   creator: UserId;
+   description: text;
+   duplicateOf: opt TicketId;
+   id: TicketId;
+   predictedCategory: opt CategoryId;
+   predictedPriority: opt PriorityId;
+   priorityId: PriorityId;
+   slaDeadline: Timestamp;
+   status: TicketStatus;
+   suggestedSolution: opt text;
+   title: text;
+   updatedAt: Timestamp;
+ };
+type TicketUpdateInput = 
+ record {
+   assignedAgent: opt UserId;
+   resolutionSummary: opt text;
+   status: opt TicketStatus;
+   ticketId: TicketId;
+ };
+type TicketStatus = 
+ variant {
+   closed;
+   in_progress;
+   open;
+   pending;
+   resolved;
+ };
+type TicketSLAStatus = 
+ record {
+   isAtRisk: bool;
+   isBreached: bool;
+   priorityId: PriorityId;
+   slaDeadline: Timestamp;
+   status: TicketStatus;
+   ticketId: TicketId;
+   timeRemainingNs: int;
+   title: text;
+ };
+type TicketQuery = 
+ record {
+   assignedAgent: opt UserId;
+   categoryId: opt CategoryId;
+   creator: opt UserId;
+   page: PageRequest;
+   priorityId: opt PriorityId;
+   search: opt text;
+   sortBy: opt variant {
+                 createdAt;
+                 priority;
+                 updatedAt;
+               };
+   sortOrder: opt SortOrder;
+   status: opt TicketStatus;
+ };
+type TicketMessage = 
+ record {
+   author: UserId;
+   authorRole: AppRole;
+   body: text;
+   createdAt: Timestamp;
+   id: MessageId;
+   isInternal: bool;
+   ticketId: TicketId;
+ };
+type TicketId = nat;
+type TicketCreateInput = 
+ record {
+   attachments: vec Attachment;
+   categoryId: CategoryId;
+   description: text;
+   priorityId: PriorityId;
+   title: text;
+ };
+type TicketAnalytics = 
+ record {
+   byCategory: vec record {
+                     CategoryId;
+                     nat;
+                   };
+   byPriority: vec record {
+                     PriorityId;
+                     nat;
+                   };
+   byStatus: vec record {
+                   TicketStatus;
+                   nat;
+                 };
+   createdOverTime: vec record {
+                          Timestamp;
+                          nat;
+                        };
+   totalTickets: nat;
+ };
+type SystemSettingsView = 
+ record {
+   aiFeaturesEnabled: bool;
+   organizationName: text;
+   updatedAt: Timestamp;
+ };
+type SystemSettingsUpdateInput = 
+ record {
+   aiFeaturesEnabled: opt bool;
+   organizationName: opt text;
+ };
+type SortOrder = 
+ variant {
+   asc;
+   desc;
+ };
+type RoleNavigation = 
+ record {
+   items: vec NavItem;
+   role: AppRole;
+ };
+type RoleKPI = 
+ record {
+   name: text;
+   value: nat;
+ };
+type RoleDashboard = 
+ record {
+   kpis: vec RoleKPI;
+   queue: ResolverQueue;
+   queueTicketCount: nat;
+   role: AppRole;
+ };
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type ResolverTier = 
+ variant {
+   l1;
+   l2;
+ };
+type ResolverQueue = 
+ variant {
+   l1Default;
+   l2Default;
+ };
+type PriorityView = 
+ record {
+   createdAt: Timestamp;
+   id: PriorityId;
+   isActive: bool;
+   level: nat;
+   name: text;
+   slaTargetNs: nat;
+ };
+type PriorityUpdateInput = 
+ record {
+   id: PriorityId;
+   isActive: opt bool;
+   level: opt nat;
+   name: opt text;
+   slaTargetNs: opt nat;
+ };
+type PriorityId = nat;
+type PriorityCreateInput = 
+ record {
+   level: nat;
+   name: text;
+   slaTargetNs: nat;
+ };
+type PageRequest = 
+ record {
+   page: nat;
+   pageSize: nat;
+ };
+type NotificationView = 
+ record {
+   createdAt: Timestamp;
+   id: NotificationId;
+   isRead: bool;
+   linkTicketId: opt TicketId;
+   message: text;
+   notificationType: NotificationType;
+   recipient: UserId;
+ };
+type NotificationType = 
+ variant {
+   roleChanged;
+   ticketAssigned;
+   ticketClosed;
+   ticketReply;
+   ticketUpdated;
+ };
+type NotificationId = nat;
+type NavItem = 
+ record {
+   badgeCount: opt nat;
+   name: text;
+   route: text;
+ };
+type MessageId = nat;
+type KnowledgeArticleView = 
+ record {
+   categoryId: opt CategoryId;
+   content: text;
+   createdAt: Timestamp;
+   id: KnowledgeArticleId;
+   title: text;
+   updatedAt: Timestamp;
+ };
+type KnowledgeArticleUpdateInput = 
+ record {
+   categoryId: opt opt CategoryId;
+   content: opt text;
+   id: KnowledgeArticleId;
+   title: opt text;
+ };
+type KnowledgeArticleId = nat;
+type KnowledgeArticleCreateInput = 
+ record {
+   categoryId: opt CategoryId;
+   content: text;
+   title: text;
+ };
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+type CategoryView = 
+ record {
+   createdAt: Timestamp;
+   description: text;
+   id: CategoryId;
+   isActive: bool;
+   name: text;
+ };
+type CategoryUpdateInput = 
+ record {
+   description: opt text;
+   id: CategoryId;
+   isActive: opt bool;
+   name: opt text;
+ };
+type CategoryId = nat;
+type CategoryCreateInput = 
+ record {
+   description: text;
+   name: text;
+ };
+type AuditLogView = 
+ record {
+   action: AuditAction;
+   actorId: UserId;
+   detail: text;
+   id: AuditLogId;
+   targetEntity: text;
+   timestamp: Timestamp;
+ };
+type AuditLogQuery = 
+ record {
+   action: opt AuditAction;
+   actorId: opt UserId;
+   fromTimestamp: opt Timestamp;
+   page: PageRequest;
+   toTimestamp: opt Timestamp;
+ };
+type AuditLogId = nat;
+type AuditAction = 
+ variant {
+   categoryCreated;
+   categoryUpdated;
+   priorityUpdated;
+   roleChanged;
+   settingsUpdated;
+   ticketAssigned;
+   ticketClosed;
+   ticketCreated;
+   ticketStatusChanged;
+   userDeactivated;
+   userReactivated;
+ };
+type AttachmentId = nat;
+type Attachment = 
+ record {
+   fileName: text;
+   id: AttachmentId;
+   mimeType: text;
+   sizeBytes: nat;
+   storageKey: text;
+   uploadedAt: Timestamp;
+   uploadedBy: UserId;
+ };
+type AppRole = 
+ variant {
+   admin;
+   employee;
+   l1_help_desk;
+   l2_resolver;
+ };
+type AgentSummary = 
+ record {
+   agentId: UserId;
+   assignedTicketCount: nat;
+   displayName: text;
+   resolutionRate: float64;
+   resolvedTicketCount: nat;
+ };
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  assignUserRole: (user: UserId, newRole: AppRole) -> (UserView);
+  closeTicket: (ticketId: TicketId, resolutionSummary: text) -> (TicketView);
+  countUnreadNotifications: () -> (nat) query;
+  createCategory: (input: CategoryCreateInput) -> (CategoryView);
+  createKnowledgeArticle: (input: KnowledgeArticleCreateInput) ->
+   (KnowledgeArticleView);
+  createPriority: (input: PriorityCreateInput) -> (PriorityView);
+  createTicket: (input: TicketCreateInput) -> (TicketView);
+  deactivateUser: (user: UserId) -> (UserView);
+  escalateTicket: (ticketId: TicketId, reason: text) -> (TicketView);
+  execute: (qJson: text) -> (Result) query;
+  getCallerAppRole: () -> (opt AppRole) query;
+  getCallerResolverTier: () -> (opt ResolverTier) query;
+  getCallerUser: () -> (opt UserView) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getCategory: (id: CategoryId) -> (opt CategoryView) query;
+  getKnowledgeArticle: (id: KnowledgeArticleId) ->
+   (opt KnowledgeArticleView) query;
+  getMyQueueTickets: () -> (vec TicketView) query;
+  getMyRoleDashboard: () -> (RoleDashboard) query;
+  getMyRoleNavigation: () -> (RoleNavigation) query;
+  getPriority: (id: PriorityId) -> (opt PriorityView) query;
+  getSLAStatuses: () -> (vec TicketSLAStatus) query;
+  getSystemSettings: () -> (SystemSettingsView) query;
+  getTicket: (id: TicketId) -> (opt TicketView) query;
+  getTicketAnalytics: () -> (TicketAnalytics) query;
+  getUser: (id: UserId) -> (opt UserView) query;
+  isCallerAdmin: () -> (bool) query;
+  listAgents: () -> (vec AgentSummary) query;
+  listAgentsByTier: (tier: opt ResolverTier) -> (vec AgentSummary) query;
+  listAllTickets: (ticketQuery: TicketQuery) -> (vec TicketView) query;
+  listAuditLogs: (auditQuery: AuditLogQuery) -> (vec AuditLogView) query;
+  listCategories: (includeInactive: bool) -> (vec CategoryView) query;
+  listKnowledgeArticles: () -> (vec KnowledgeArticleView) query;
+  listMyAssignedTickets: (ticketQuery: TicketQuery) -> (vec TicketView) query;
+  listMyNotifications: (includeRead: bool) -> (vec NotificationView) query;
+  listMyTickets: (ticketQuery: TicketQuery) -> (vec TicketView) query;
+  listPriorities: (includeInactive: bool) -> (vec PriorityView) query;
+  listTicketMessages: (ticketId: TicketId) -> (vec TicketMessage) query;
+  listUsers: (search: opt text, roleFilter: opt AppRole, page:
+   PageRequest) -> (vec UserView) query;
+  markAllNotificationsAsRead: () -> (nat);
+  markNotificationAsRead: (id: NotificationId) -> (bool);
+  postTicketMessage: (ticketId: TicketId, body: text, isInternal: bool) ->
+   (TicketMessage);
+  reactivateUser: (user: UserId) -> (UserView);
+  reassignTicket: (ticketId: TicketId, newAgent: UserId) -> (TicketView);
+  schema: () -> (text) query;
+  updateCategory: (input: CategoryUpdateInput) -> (CategoryView);
+  updateKnowledgeArticle: (input: KnowledgeArticleUpdateInput) ->
+   (KnowledgeArticleView);
+  updatePriority: (input: PriorityUpdateInput) -> (PriorityView);
+  updateSystemSettings: (input: SystemSettingsUpdateInput) ->
+   (SystemSettingsView);
+  updateTicket: (input: TicketUpdateInput) -> (TicketView);
+}

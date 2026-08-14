@@ -1,0 +1,24 @@
+{
+  "overview": "Enterprise IT service management platform with role-based dashboards, corporate login, and professional ticket management.",
+  "features": [
+    "Corporate branded login with Internet Identity",
+    "Four role-based dashboards",
+    "Enterprise sidebar and top navigation",
+    "Global search across tickets and articles",
+    "Breadcrumbs on every page",
+    "Professional data tables with filtering, sorting, and pagination",
+    "Status and priority badges",
+    "SLA indicators with color-coded urgency",
+    "Loading, empty, and error states",
+    "Responsive design"
+  ],
+  "category": "productivity",
+  "tags": [
+    "itsm",
+    "helpdesk",
+    "ticketing",
+    "enterprise",
+    "service-desk"
+  ],
+  "last_updated": "2026-08-14T05:39:02.295Z"
+}

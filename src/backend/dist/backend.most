@@ -1,0 +1,674 @@
+// Version: 4.0.0
+type AppRole__688856519 = {#admin; #employee; #l1_help_desk; #l2_resolver};
+type AppRole__939986524 = {#admin; #employee; #support_agent};
+type AttachmentId__640090544 = Nat;
+type Attachment__3138567 =
+  {
+    fileName : Text;
+    id : AttachmentId__640090544;
+    mimeType : Text;
+    sizeBytes : Nat;
+    storageKey : Text;
+    uploadedAt : Timestamp__301639476;
+    uploadedBy : UserId__158757552
+  };
+type Attachment__646203034 =
+  {
+    fileName : Text;
+    id : Nat;
+    mimeType : Text;
+    sizeBytes : Nat;
+    storageKey : Text;
+    uploadedAt : Nat;
+    uploadedBy : Principal
+  };
+type AuditAction__595905663 =
+  {
+    #categoryCreated;
+    #categoryUpdated;
+    #priorityUpdated;
+    #roleChanged;
+    #settingsUpdated;
+    #ticketAssigned;
+    #ticketClosed;
+    #ticketCreated;
+    #ticketStatusChanged;
+    #userDeactivated;
+    #userReactivated
+  };
+type AuditAction__64766357 =
+  {
+    #categoryCreated;
+    #categoryUpdated;
+    #priorityUpdated;
+    #roleChanged;
+    #settingsUpdated;
+    #ticketAssigned;
+    #ticketClosed;
+    #ticketCreated;
+    #ticketStatusChanged;
+    #userDeactivated;
+    #userReactivated
+  };
+type AuditLogId__176736089 = Nat;
+type AuditLog__380487604 =
+  {
+    action : AuditAction__64766357;
+    actorId : Principal;
+    detail : Text;
+    id : Nat;
+    targetEntity : Text;
+    timestamp : Nat
+  };
+type AuditLog__476823628 =
+  {
+    action : AuditAction__595905663;
+    actorId : UserId__158757552;
+    detail : Text;
+    id : AuditLogId__176736089;
+    targetEntity : Text;
+    timestamp : Timestamp__301639476
+  };
+type CategoryId__14729845 = Nat;
+type Category__349932887 =
+  {
+    var createdAt : Timestamp__301639476;
+    var description : Text;
+    id : CategoryId__14729845;
+    var isActive : Bool;
+    var name : Text
+  };
+type Category__949360028 =
+  {
+    var createdAt : Nat;
+    var description : Text;
+    id : Nat;
+    var isActive : Bool;
+    var name : Text
+  };
+type Data__265875254<K, V> = {var count : Nat__58649523; kvs : [var ?(K, V)]};
+type Internal__161573640<K, V> =
+  {children : [var ?Node__430031793<K, V>]; data : Data__265875254<K, V>};
+type KnowledgeArticleId__253924455 = Nat;
+type KnowledgeArticle__205412223 =
+  {
+    var categoryId : ?CategoryId__14729845;
+    var content : Text;
+    var createdAt : Timestamp__301639476;
+    id : KnowledgeArticleId__253924455;
+    var title : Text;
+    var updatedAt : Timestamp__301639476
+  };
+type KnowledgeArticle__220770162 =
+  {
+    var categoryId : ?Nat;
+    var content : Text;
+    var createdAt : Nat;
+    id : Nat;
+    var title : Text;
+    var updatedAt : Nat
+  };
+type Leaf__1045638083<K, V> = {data : Data__265875254<K, V>};
+type List__1004628775<T> =
+  {
+    var blockIndex : Nat__58649523;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__58649523
+  };
+type List__89170296<T> = List__1004628775<T>;
+type Map__13625999<K, V> =
+  {var root : Node__430031793<K, V>; var size : Nat__58649523};
+type Map__386906547<K, V> = Map__670138087<K, V>;
+type Map__670138087<K, V> = Map__13625999<K, V>;
+type MessageId__291319400 = Nat;
+type Nat__58649523 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__448987978 =
+  {
+    auditLogs : List__89170296<NewAuditLog__338955808>;
+    categories : Map__386906547<Nat, NewCategory__468268516>;
+    knowledgeArticles : Map__386906547<Nat, NewKnowledgeArticle__509129418>;
+    nextArticleId : {var next : Nat};
+    nextAuditLogId : {var next : Nat};
+    nextCategoryId : {var next : Nat};
+    nextMessageId : {var next : Nat};
+    nextNotificationId : {var next : Nat};
+    nextPriorityId : {var next : Nat};
+    nextTicketId : {var next : Nat};
+    nextUserId : {var next : Nat};
+    notifications : List__89170296<NewNotification__636969057>;
+    priorities : Map__386906547<Nat, NewPriority__316274334>;
+    systemSettings : NewSystemSettings__704585918;
+    ticketMessages :
+      Map__386906547<Nat, List__89170296<NewTicketMessage__836988414>>;
+    tickets : Map__386906547<Nat, NewTicket__918173589>;
+    users : Map__386906547<Principal, NewUser__834215785>
+  };
+type NewActor__547210969 =
+  {
+    auditLogs : List__89170296<AuditLog__380487604>;
+    categories : Map__386906547<Nat, Category__949360028>;
+    knowledgeArticles : Map__386906547<Nat, KnowledgeArticle__220770162>;
+    nextArticleId : {var next : Nat};
+    nextAuditLogId : {var next : Nat};
+    nextCategoryId : {var next : Nat};
+    nextMessageId : {var next : Nat};
+    nextNotificationId : {var next : Nat};
+    nextPriorityId : {var next : Nat};
+    nextTicketId : {var next : Nat};
+    nextUserId : {var next : Nat};
+    notifications : List__89170296<Notification__142945252>;
+    priorities : Map__386906547<Nat, Priority__856695669>;
+    systemSettings : SystemSettings__210342620;
+    ticketMessages :
+      Map__386906547<Nat, List__89170296<TicketMessage__144314273>>;
+    tickets : Map__386906547<Nat, Ticket__509466937>;
+    users : Map__386906547<Principal, User__45862745>
+  };
+type NewAppRole__221996878 = {#admin; #employee; #l1_help_desk; #l2_resolver};
+type NewAttachment__44562759 =
+  {
+    fileName : Text;
+    id : Nat;
+    mimeType : Text;
+    sizeBytes : Nat;
+    storageKey : Text;
+    uploadedAt : Nat;
+    uploadedBy : Principal
+  };
+type NewAuditAction__163946934 =
+  {
+    #categoryCreated;
+    #categoryUpdated;
+    #priorityUpdated;
+    #roleChanged;
+    #settingsUpdated;
+    #ticketAssigned;
+    #ticketClosed;
+    #ticketCreated;
+    #ticketStatusChanged;
+    #userDeactivated;
+    #userReactivated
+  };
+type NewAuditLog__338955808 =
+  {
+    action : NewAuditAction__163946934;
+    actorId : Principal;
+    detail : Text;
+    id : Nat;
+    targetEntity : Text;
+    timestamp : Nat
+  };
+type NewCategory__468268516 =
+  {
+    var createdAt : Nat;
+    var description : Text;
+    id : Nat;
+    var isActive : Bool;
+    var name : Text
+  };
+type NewKnowledgeArticle__509129418 =
+  {
+    var categoryId : ?Nat;
+    var content : Text;
+    var createdAt : Nat;
+    id : Nat;
+    var title : Text;
+    var updatedAt : Nat
+  };
+type NewNotificationType__1050242829 =
+  {
+    #roleChanged;
+    #ticketAssigned;
+    #ticketClosed;
+    #ticketReply;
+    #ticketUpdated
+  };
+type NewNotification__636969057 =
+  {
+    var createdAt : Nat;
+    id : Nat;
+    var isRead : Bool;
+    var linkTicketId : ?Nat;
+    var message : Text;
+    var notificationType : NewNotificationType__1050242829;
+    var recipient : Principal
+  };
+type NewPriority__316274334 =
+  {
+    var createdAt : Nat;
+    id : Nat;
+    var isActive : Bool;
+    var level : Nat;
+    var name : Text;
+    var slaTargetNs : Nat
+  };
+type NewSystemSettings__704585918 =
+  {
+    var aiFeaturesEnabled : Bool;
+    var organizationName : Text;
+    var updatedAt : Nat
+  };
+type NewTicketAIPrediction__245653016 =
+  {
+    var duplicateOf : ?Nat;
+    var predictedCategory : ?Nat;
+    var predictedPriority : ?Nat;
+    var suggestedSolution : ?Text
+  };
+type NewTicketMessage__836988414 =
+  {
+    author : Principal;
+    authorRole : NewAppRole__221996878;
+    body : Text;
+    createdAt : Nat;
+    id : Nat;
+    isInternal : Bool;
+    ticketId : Nat
+  };
+type NewTicketStatus__544590987 =
+  {#closed; #in_progress; #open; #pending; #resolved};
+type NewTicket__918173589 =
+  {
+    var ai : NewTicketAIPrediction__245653016;
+    var assignedAgent : ?Principal;
+    var attachments : [NewAttachment__44562759];
+    var categoryId : Nat;
+    var closedAt : ?Nat;
+    var createdAt : Nat;
+    var creator : Principal;
+    var description : Text;
+    id : Nat;
+    var priorityId : Nat;
+    var slaDeadline : Nat;
+    var status : NewTicketStatus__544590987;
+    var title : Text;
+    var updatedAt : Nat
+  };
+type NewUser__834215785 =
+  {
+    var createdAt : Nat;
+    var displayName : Text;
+    var email : ?Text;
+    id : Principal;
+    var isActive : Bool;
+    var lastSeenAt : ?Nat;
+    var role : NewAppRole__221996878
+  };
+type Node__430031793<K, V> =
+  {#internal : Internal__161573640<K, V>; #leaf : Leaf__1045638083<K, V>};
+type NotificationId__307495059 = Nat;
+type NotificationType__908192046 =
+  {
+    #roleChanged;
+    #ticketAssigned;
+    #ticketClosed;
+    #ticketReply;
+    #ticketUpdated
+  };
+type NotificationType__942030203 =
+  {
+    #roleChanged;
+    #ticketAssigned;
+    #ticketClosed;
+    #ticketReply;
+    #ticketUpdated
+  };
+type Notification__142945252 =
+  {
+    var createdAt : Nat;
+    id : Nat;
+    var isRead : Bool;
+    var linkTicketId : ?Nat;
+    var message : Text;
+    var notificationType : NotificationType__942030203;
+    var recipient : Principal
+  };
+type Notification__264708741 =
+  {
+    var createdAt : Timestamp__301639476;
+    id : NotificationId__307495059;
+    var isRead : Bool;
+    var linkTicketId : ?TicketId__224230191;
+    var message : Text;
+    var notificationType : NotificationType__908192046;
+    var recipient : UserId__158757552
+  };
+type OldActor__1020235230 = {};
+type OldActor__650728180 =
+  {
+    auditLogs : List__89170296<OldAuditLog__528481115>;
+    categories : Map__386906547<Nat, OldCategory__435226445>;
+    knowledgeArticles : Map__386906547<Nat, OldKnowledgeArticle__401300848>;
+    nextArticleId : {var next : Nat};
+    nextAuditLogId : {var next : Nat};
+    nextCategoryId : {var next : Nat};
+    nextMessageId : {var next : Nat};
+    nextNotificationId : {var next : Nat};
+    nextPriorityId : {var next : Nat};
+    nextTicketId : {var next : Nat};
+    nextUserId : {var next : Nat};
+    notifications : List__89170296<OldNotification__61165024>;
+    priorities : Map__386906547<Nat, OldPriority__367101487>;
+    systemSettings : OldSystemSettings__688136128;
+    ticketMessages :
+      Map__386906547<Nat, List__89170296<OldTicketMessage__107920176>>;
+    tickets : Map__386906547<Nat, OldTicket__23426300>;
+    users : Map__386906547<Principal, OldUser__989078551>
+  };
+type OldAppRole__549962329 = {#admin; #employee; #support_agent};
+type OldAttachment__693348733 =
+  {
+    fileName : Text;
+    id : Nat;
+    mimeType : Text;
+    sizeBytes : Nat;
+    storageKey : Text;
+    uploadedAt : Nat;
+    uploadedBy : Principal
+  };
+type OldAuditAction__466987673 =
+  {
+    #categoryCreated;
+    #categoryUpdated;
+    #priorityUpdated;
+    #roleChanged;
+    #settingsUpdated;
+    #ticketAssigned;
+    #ticketClosed;
+    #ticketCreated;
+    #ticketStatusChanged;
+    #userDeactivated;
+    #userReactivated
+  };
+type OldAuditLog__528481115 =
+  {
+    action : OldAuditAction__466987673;
+    actorId : Principal;
+    detail : Text;
+    id : Nat;
+    targetEntity : Text;
+    timestamp : Nat
+  };
+type OldCategory__435226445 =
+  {
+    var createdAt : Nat;
+    var description : Text;
+    id : Nat;
+    var isActive : Bool;
+    var name : Text
+  };
+type OldKnowledgeArticle__401300848 =
+  {
+    var categoryId : ?Nat;
+    var content : Text;
+    var createdAt : Nat;
+    id : Nat;
+    var title : Text;
+    var updatedAt : Nat
+  };
+type OldNotificationType__703956926 =
+  {
+    #roleChanged;
+    #ticketAssigned;
+    #ticketClosed;
+    #ticketReply;
+    #ticketUpdated
+  };
+type OldNotification__61165024 =
+  {
+    var createdAt : Nat;
+    id : Nat;
+    var isRead : Bool;
+    var linkTicketId : ?Nat;
+    var message : Text;
+    var notificationType : OldNotificationType__703956926;
+    var recipient : Principal
+  };
+type OldPriority__367101487 =
+  {
+    var createdAt : Nat;
+    id : Nat;
+    var isActive : Bool;
+    var level : Nat;
+    var name : Text;
+    var slaTargetNs : Nat
+  };
+type OldSystemSettings__688136128 =
+  {
+    var aiFeaturesEnabled : Bool;
+    var organizationName : Text;
+    var updatedAt : Nat
+  };
+type OldTicketAIPrediction__444850856 =
+  {
+    var duplicateOf : ?Nat;
+    var predictedCategory : ?Nat;
+    var predictedPriority : ?Nat;
+    var suggestedSolution : ?Text
+  };
+type OldTicketMessage__107920176 =
+  {
+    author : Principal;
+    authorRole : OldAppRole__549962329;
+    body : Text;
+    createdAt : Nat;
+    id : Nat;
+    isInternal : Bool;
+    ticketId : Nat
+  };
+type OldTicketStatus__597320725 =
+  {#closed; #in_progress; #open; #pending; #resolved};
+type OldTicket__23426300 =
+  {
+    var ai : OldTicketAIPrediction__444850856;
+    var assignedAgent : ?Principal;
+    var attachments : [OldAttachment__693348733];
+    var categoryId : Nat;
+    var closedAt : ?Nat;
+    var createdAt : Nat;
+    var creator : Principal;
+    var description : Text;
+    id : Nat;
+    var priorityId : Nat;
+    var slaDeadline : Nat;
+    var status : OldTicketStatus__597320725;
+    var title : Text;
+    var updatedAt : Nat
+  };
+type OldUser__989078551 =
+  {
+    var createdAt : Nat;
+    var displayName : Text;
+    var email : ?Text;
+    id : Principal;
+    var isActive : Bool;
+    var lastSeenAt : ?Nat;
+    var role : OldAppRole__549962329
+  };
+type PriorityId__279605669 = Nat;
+type Priority__856695669 =
+  {
+    var createdAt : Nat;
+    id : Nat;
+    var isActive : Bool;
+    var level : Nat;
+    var name : Text;
+    var slaTargetNs : Nat
+  };
+type Priority__897075843 =
+  {
+    var createdAt : Timestamp__301639476;
+    id : PriorityId__279605669;
+    var isActive : Bool;
+    var level : Nat;
+    var name : Text;
+    var slaTargetNs : Nat
+  };
+type SystemSettings__210342620 =
+  {
+    var aiFeaturesEnabled : Bool;
+    var organizationName : Text;
+    var updatedAt : Nat
+  };
+type TicketAIPrediction__682763634 =
+  {
+    var duplicateOf : ?TicketId__224230191;
+    var predictedCategory : ?CategoryId__14729845;
+    var predictedPriority : ?PriorityId__279605669;
+    var suggestedSolution : ?Text
+  };
+type TicketAIPrediction__789960158 =
+  {
+    var duplicateOf : ?Nat;
+    var predictedCategory : ?Nat;
+    var predictedPriority : ?Nat;
+    var suggestedSolution : ?Text
+  };
+type TicketId__224230191 = Nat;
+type TicketMessage__144314273 =
+  {
+    author : Principal;
+    authorRole : AppRole__939986524;
+    body : Text;
+    createdAt : Nat;
+    id : Nat;
+    isInternal : Bool;
+    ticketId : Nat
+  };
+type TicketMessage__492769089 =
+  {
+    author : UserId__158757552;
+    authorRole : AppRole__688856519;
+    body : Text;
+    createdAt : Timestamp__301639476;
+    id : MessageId__291319400;
+    isInternal : Bool;
+    ticketId : TicketId__224230191
+  };
+type TicketStatus__406796210 =
+  {#closed; #in_progress; #open; #pending; #resolved};
+type TicketStatus__648101983 =
+  {#closed; #in_progress; #open; #pending; #resolved};
+type Ticket__509466937 =
+  {
+    var ai : TicketAIPrediction__789960158;
+    var assignedAgent : ?Principal;
+    var attachments : [Attachment__646203034];
+    var categoryId : Nat;
+    var closedAt : ?Nat;
+    var createdAt : Nat;
+    var creator : Principal;
+    var description : Text;
+    id : Nat;
+    var priorityId : Nat;
+    var slaDeadline : Nat;
+    var status : TicketStatus__406796210;
+    var title : Text;
+    var updatedAt : Nat
+  };
+type Ticket__555771949 =
+  {
+    var ai : TicketAIPrediction__682763634;
+    var assignedAgent : ?UserId__158757552;
+    var attachments : [Attachment__3138567];
+    var categoryId : CategoryId__14729845;
+    var closedAt : ?Timestamp__301639476;
+    var createdAt : Timestamp__301639476;
+    var creator : UserId__158757552;
+    var description : Text;
+    id : TicketId__224230191;
+    var priorityId : PriorityId__279605669;
+    var slaDeadline : Timestamp__301639476;
+    var status : TicketStatus__648101983;
+    var title : Text;
+    var updatedAt : Timestamp__301639476
+  };
+type Timestamp__301639476 = Nat;
+type UserId__158757552 = Principal;
+type User__45862745 =
+  {
+    var createdAt : Nat;
+    var displayName : Text;
+    var email : ?Text;
+    id : Principal;
+    var isActive : Bool;
+    var lastSeenAt : ?Nat;
+    var role : AppRole__939986524
+  };
+type User__98118558 =
+  {
+    var createdAt : Timestamp__301639476;
+    var displayName : Text;
+    var email : ?Text;
+    id : UserId__158757552;
+    var isActive : Bool;
+    var lastSeenAt : ?Timestamp__301639476;
+    var role : AppRole__688856519
+  };
+{
+  "20260814_000000" : (_old : OldActor__1020235230) -> NewActor__547210969;
+  "20260814_000100" : (old : OldActor__650728180) -> NewActor__448987978
+}
+actor  {
+  stable auditLogs :
+    {
+      var blockIndex : Nat__58649523;
+      var blocks : [var [var ?AuditLog__476823628]];
+      var elementIndex : Nat__58649523
+    };
+  stable categories :
+    {
+      var root : Node__430031793<CategoryId__14729845, Category__349932887>;
+      var size : Nat__58649523
+    };
+  stable knowledgeArticles :
+    {
+      var root :
+        Node__430031793<KnowledgeArticleId__253924455,
+                         KnowledgeArticle__205412223>;
+      var size : Nat__58649523
+    };
+  stable nextArticleId : {var next : KnowledgeArticleId__253924455};
+  stable nextAuditLogId : {var next : AuditLogId__176736089};
+  stable nextCategoryId : {var next : CategoryId__14729845};
+  stable nextMessageId : {var next : MessageId__291319400};
+  stable nextNotificationId : {var next : NotificationId__307495059};
+  stable nextPriorityId : {var next : PriorityId__279605669};
+  stable nextTicketId : {var next : TicketId__224230191};
+  stable nextUserId : {var next : Timestamp__301639476};
+  stable notifications :
+    {
+      var blockIndex : Nat__58649523;
+      var blocks : [var [var ?Notification__264708741]];
+      var elementIndex : Nat__58649523
+    };
+  stable priorities :
+    {
+      var root : Node__430031793<PriorityId__279605669, Priority__897075843>;
+      var size : Nat__58649523
+    };
+  stable systemSettings :
+    {
+      var aiFeaturesEnabled : Bool;
+      var organizationName : Text;
+      var updatedAt : Timestamp__301639476
+    };
+  stable ticketMessages :
+    {
+      var root :
+        Node__430031793<TicketId__224230191,
+                         List__89170296<TicketMessage__492769089>>;
+      var size : Nat__58649523
+    };
+  stable tickets :
+    {
+      var root : Node__430031793<TicketId__224230191, Ticket__555771949>;
+      var size : Nat__58649523
+    };
+  stable users :
+    {
+      var root : Node__430031793<UserId__158757552, User__98118558>;
+      var size : Nat__58649523
+    }
+};
